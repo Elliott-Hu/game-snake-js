@@ -1,0 +1,41 @@
+*{
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+	font-family: BlinkMacSystemFont,Helvetica,"lucida Grande","PingFang SC",SCHeiti,"Microsoft YaHei";
+}
+li{
+	list-style:none;
+}
+
+
+.app{
+}
+.map{
+	position:relative;
+	margin:100px auto;
+	width:500px;
+	height:500px;
+	background:#000;
+}
+
+
+.snake{
+	position:absolute;
+	left:0;
+	top:0;
+}
+
+.snake>li{
+	position:absolute;
+	width:5px;
+	height:5px;
+	border:1px solid #fff;
+}
+
+.food{
+	width:5px;
+	height:5px;
+	position:absolute;
+	background:#fff;
+}
