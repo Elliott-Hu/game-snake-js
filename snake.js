@@ -3,7 +3,7 @@ function Snake(){
   this.len = 10;
   this.direction = 1;    //0"up" 1"right" 2"down" 3"left"
   this.track = [];
-  this.speed = 100; 
+  this.speed = 50; 
 
   this.target = [10,10];
 

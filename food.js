@@ -25,3 +25,20 @@
 // var food = new Food([10,20]);
 
 // food = new Food([20,20]);
+
+
+
+
+
+function* motherFuck(){
+		console.log("step1");
+		yield "st1";
+		console.log("step2")
+		return "endding";
+}
+
+var hehehe = motherFuck()
+var hahaha = hehehe.next();
+var fuck = hehehe.next();
+console.log(hahaha);
+console.log(fuck);
