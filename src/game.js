@@ -14,23 +14,47 @@ function Game() {
   this.timer = null;
 
   this.speed = 50;
-  this._status = statusMap["GAME_WILL_START"];
-  this.init();
+  
+  this._status = null;
+  this.initGameStatus();
 }
 
 Game.prototype = {
   constructor: Game,
-  init: function() {
+  start: function() {
+    console.log(this._status);
+    if(this.status != statusMap["GAME_WILL_START"]) return;
+    this.status = statusMap["IS_GAME"];
+  },
+  _start: function() {
     this.snake.born();
     this.timer = setInterval(function() {
       this.snake.move().render();
 
       this.successToEat().checkIsFail();
     }.bind(this), this.speed)
-
+  },
+  initGameStatus: function() {
+    var panel = document.getElementById("init_panel");
     // 记录游戏状态
-    this._setProperty("status", statusMap["IS_GAME"], this._status, function(value) {
-      if (value == statusMap["GAME_FAIL"]) clearInterval(this.timer);
+    this._setProperty("status", statusMap["GAME_WILL_START"], this._status, function(value) {
+      switch (value) {
+        case statusMap["GAME_WILL_START"]:
+          panel.style.display = "block";
+          break;
+        case statusMap["IS_GAME"]:
+          panel.style.display = "none";
+          this._start();
+          break;
+        case statusMap["GAME_FAIL"]:
+          clearInterval(this.timer)
+          break;
+        case statusMap["GAME_COMPLATE"]:
+          clearInterval(this.timer)
+          break;
+        default:
+          break;
+      }
     }.bind(this))
   },
   _setProperty(name, value, private, callback) {
@@ -38,10 +62,13 @@ Game.prototype = {
       enumerable: true,
       get: function() { return private },
       set: function(val) {
-        callback && callback(val);
+        console.log("set", val);
         private = val;
+        callback && callback(val);
       }
     });
+    this[name] = value;
+    console.log(this.status);
   },
   checkIsFail: function() {
     var snakeHead =this.snake.track[0];

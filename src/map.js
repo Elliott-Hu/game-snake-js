@@ -1,5 +1,5 @@
 function Map() {
-  this.area = [45, 80];
+  this.area = [44, 29];
 
   this.init();
 }

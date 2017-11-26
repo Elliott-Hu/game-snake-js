@@ -52,15 +52,19 @@ Snake.prototype = {
     code = parseInt(code, 10);
     switch (code) {
       case 37:
+      case 65: // 左
         this.direction = lastDirection == 1 ? lastDirection : 3;
         break;
       case 38:
+      case 87: // 上
         this.direction = lastDirection == 2 ? lastDirection : 0;
         break;
       case 39:
+      case 68: // 右
         this.direction = lastDirection == 3 ? lastDirection : 1;
         break;
       case 40:
+      case 83: // 下
         this.direction = lastDirection == 0 ? lastDirection : 2;
         break;
       default:
