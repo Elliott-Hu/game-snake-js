@@ -16,13 +16,12 @@ function Game() {
   this.speed = 50;
   
   this._status = null;
-  this.initGameStatus();
+  this.init();
 }
 
 Game.prototype = {
   constructor: Game,
   start: function() {
-    console.log(this._status);
     if(this.status != statusMap["GAME_WILL_START"]) return;
     this.status = statusMap["IS_GAME"];
   },
@@ -34,6 +33,10 @@ Game.prototype = {
       this.successToEat().checkIsFail();
     }.bind(this), this.speed)
   },
+  init() {
+    this.initController();
+    this.initGameStatus();
+  },
   initGameStatus: function() {
     var panel = document.getElementById("init_panel");
     // 记录游戏状态
@@ -41,34 +44,44 @@ Game.prototype = {
       switch (value) {
         case statusMap["GAME_WILL_START"]:
           panel.style.display = "block";
+          console.log("GAME_IS_INIT");
           break;
         case statusMap["IS_GAME"]:
           panel.style.display = "none";
+          console.log("IS_GAMING");
           this._start();
           break;
         case statusMap["GAME_FAIL"]:
           clearInterval(this.timer)
+          console.log("YOU_LOSE")
           break;
-        case statusMap["GAME_COMPLATE"]:
+        case statusMap["GAME_COMPLETE"]:
           clearInterval(this.timer)
+          console.log("MISSION_COMPLETE");
           break;
         default:
           break;
       }
     }.bind(this))
   },
+  initController: function() {
+    document.addEventListener("keydown", function (event) {
+      var code = event.keyCode;
+      if (code == 74) return this.start();
+  
+      this.snake.turn(code);
+    }.bind(this), false)
+  },
   _setProperty(name, value, private, callback) {
     Object.defineProperty(this, name, {
       enumerable: true,
       get: function() { return private },
       set: function(val) {
-        console.log("set", val);
         private = val;
         callback && callback(val);
       }
     });
     this[name] = value;
-    console.log(this.status);
   },
   checkIsFail: function() {
     var snakeHead =this.snake.track[0];
