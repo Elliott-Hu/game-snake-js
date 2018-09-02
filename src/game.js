@@ -67,7 +67,7 @@ Game.prototype = {
   initController: function() {
     document.addEventListener("keydown", function (event) {
       var code = event.keyCode;
-      if (code == 74) return this.start();
+      if (code == 65) return this.start();
   
       this.snake.turn(code);
     }.bind(this), false)
@@ -97,7 +97,7 @@ Game.prototype = {
       || snakeHead[1] < 0) {
       this.status = statusMap["GAME_FAIL"];
     }
-     
+
     return this;
   },
   successToEat: function() {
@@ -120,5 +120,5 @@ Game.prototype = {
     }
 
     return this.randomNum(min, max);
-}
+  }
 }
